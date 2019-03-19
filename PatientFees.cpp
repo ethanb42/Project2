@@ -29,7 +29,7 @@ int main() {
 
 	//main menu
 	while (menu == 0) {
-		cout << "1. Enter Surgery\n2. Enter Medicine\n3. Check out patient\nInput:" << endl;
+		cout << "\n1. Enter Surgery\n2. Enter Medicine\n3. Check out patient\nInput:" << endl;
 		cin >> input;
 		switch (input) {
 		case '1':
