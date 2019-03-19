@@ -10,6 +10,7 @@ int main() {
 	//input variables
 	char input;
 	int in;
+	int menu = 0;
 	int loop = 0;
 	//create a patient
 	PatientAccount account;
@@ -25,87 +26,111 @@ int main() {
 
 	cout << "Welcome to Patient Fee Menu" << endl;
 	cout << "The daily fee is $" << account.getDaily() << endl;	//surgery type
-	cout << "\nPlease select which surgery!" << endl;
-	surg.displaySurgery();
-	do {
-		cout << "Input:" << endl;
+
+	//main menu
+	while (menu == 0) {
+		cout << "1. Enter Surgery\n2. Enter Medicine\n3. Check out patient\nInput:" << endl;
 		cin >> input;
 		switch (input) {
 		case '1':
-			surg.updateCharges(surg.getSurgery1(), account);
-			loop = 1;
+			//surgury sub menu
+			cout << "\nPlease select which surgery!" << endl;
+			surg.displaySurgery();
+			do {
+				cout << "Input:" << endl;
+				cin >> input;
+				switch (input) {
+				case '1':
+					surg.updateCharges(surg.getSurgery1(), account);
+					loop = 1;
+					break;
+				case '2':
+					surg.updateCharges(surg.getSurgery2(), account);
+					loop = 1;
+					break;
+				case '3':
+					surg.updateCharges(surg.getSurgery3(), account);
+					loop = 1;
+					break;
+				case '4':
+					surg.updateCharges(surg.getSurgery4(), account);
+					loop = 1;
+					break;
+				case '5':
+					surg.updateCharges(surg.getSurgery5(), account);
+					loop = 1;
+					break;
+				default:
+					cout << "Invalid input, try again!!\n" << endl;
+
+				}
+
+			} while (loop == 0);
 			break;
 		case '2':
-			surg.updateCharges(surg.getSurgery2(), account);
-			loop = 1;
+			//pharmacy submenu
+			loop = 0;
+			//pharmacy drug type
+			cout << "\nPlease select which medicine!" << endl;
+			pharm.displayPharmacy();
+			do {
+				cout << "Input:" << endl;
+				cin >> input;
+				switch (input) {
+				case '1':
+					pharm.updatePatientAccount(pharm.getMed1(), account);
+					loop = 1;
+					break;
+				case '2':
+					pharm.updatePatientAccount(pharm.getMed2(), account);
+					loop = 1;
+					break;
+				case '3':
+					pharm.updatePatientAccount(pharm.getMed3(), account);
+					loop = 1;
+					break;
+				case '4':
+					pharm.updatePatientAccount(pharm.getMed4(), account);
+					loop = 1;
+					break;
+				case '5':
+					pharm.updatePatientAccount(pharm.getMed5(), account);
+					loop = 1;
+					break;
+				default:
+					cout << "Invalid input, try again!!\n" << endl;
+
+				}
+
+			} while (loop == 0);
+
 			break;
 		case '3':
-			surg.updateCharges(surg.getSurgery3(), account);
-			loop = 1;
-			break;
-		case '4':
-			surg.updateCharges(surg.getSurgery4(), account);
-			loop = 1;
-			break;
-		case '5':
-			surg.updateCharges(surg.getSurgery5(), account);
-			loop = 1;
-			break;
-		default: 
-			cout << "Invalid input, try again!!\n" << endl;
 
-		}
+			//check out menu
+			//patients days
+			do {
+				cout << "Please enter the total days for patient." << endl;
+				cin >> in;
 
-	} while (loop==0);
+			} while (in < 0);
+			account.setDays(in);
 
-	loop = 0;
-	//pharmacy drug type
-	cout << "\nPlease select which medicine!" << endl;
-	pharm.displayPharmacy();
-	do {
-		cout << "Input:" << endl;
-		cin >> input;
-		switch (input) {
-		case '1':
-			pharm.updatePatientAccount(pharm.getMed1(), account);
-			loop = 1;
+			//add all the charges
+			account.setCharges(account.getCharges() + account.getDays()*account.getDaily());
+
+			//all charges added display the total
+
+			cout << "The total charges: $" << account.getCharges() << endl;
+			menu = 1;
 			break;
-		case '2':
-			pharm.updatePatientAccount(pharm.getMed2(), account);
-			loop = 1;
-			break;
-		case '3':
-			pharm.updatePatientAccount(pharm.getMed3(), account);
-			loop = 1;
-			break;
-		case '4':
-			pharm.updatePatientAccount(pharm.getMed4(), account);
-			loop = 1;
-			break;
-		case '5':
-			pharm.updatePatientAccount(pharm.getMed5(), account);
-			loop = 1;
-			break;
+
 		default:
-			cout << "Invalid input, try again!!\n" << endl;
-
+			cout << "Invalid response....." << endl;
 		}
+	}
 
-	} while (loop == 0);
 
-	//patients days
-	do {
-		cout << "Please enter the total days for patient." << endl;
-		cin >> in;
-
-	} while (in < 0);
-	account.setDays(in);
-
-	//add all the charges
-	account.setCharges(account.getCharges() + account.getDays()*account.getDaily());
-
-	//all charges added display the total
-	cout << "The total charges: $" << account.getCharges() << endl;
 
 	return 0;
 }
