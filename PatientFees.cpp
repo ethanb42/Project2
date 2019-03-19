@@ -127,6 +127,7 @@ int main() {
 
 		default:
 			cout << "Invalid response....." << endl;
+				break;
 		}
 	}
 
